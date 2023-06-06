@@ -1,0 +1,142 @@
+
+
+/* ======================================================== */
+.card {
+  transform-style: preserve-3d;
+  position: relative;
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  box-shadow: #f5576c 0px 5px 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  background: rgb(75, 53, 118);
+  background-image: linear-gradient(120deg, #f093fb 10%, #f5576c 100%);
+  transition: all 0.1s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.sneaaker-img {
+  position: relative;
+  width: 90%;
+  transition: all 0.5s ease;
+}
+
+.title,
+.card p {
+  width: 100%;
+  color: rgb(0, 0, 0);
+}
+
+.sizes-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.sizes-box li {
+  list-style: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(220, 220, 220);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.sizes-box li:hover {
+  background-color: rgb(134, 134, 134);
+}
+
+.button-box {
+  width: 100%;
+}
+
+.update {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  width: 100%;
+  border-radius: 30px;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  border: none;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.update:hover {
+  color: white;
+  background-color: rgb(40, 40, 40);
+}
+
+
+
+.cta {
+  float: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  color: #fff;
+  transition: width 0.7s;
+}
+
+.cta:hover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 140px;
+  transition: width 0.7s;
+}
+
+.button-text{
+  display: none;
+}
+.cta:hover .button-text {
+  position: absolute;
+  width: 50%;
+  display: inline;
+  opacity: 1;
+  transition: opacity 0.5s
+}
+.icon{
+  width: 50%;
+}
+
+.edit{
+  border: 2px solid #5783db;
+  background-color: #4681f4;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.delete{
+  border: 2px solid rgb(248, 0, 0);
+  background-color: rgba(255, 40, 40, 0.874);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.box1, .box2{
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+  word-wrap: break-word;
+}

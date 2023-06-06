@@ -1,0 +1,60 @@
+.card2 {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  background-color: #222222; /* Dark background color */
+  color: #ffffff;
+  border-radius: 8px;
+  margin: 16px;
+  overflow: hidden;
+  animation: fade-in 0.5s ease;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease;
+}
+
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.card-description {
+  line-height: 1.4;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.card-author {
+  font-weight: 600;
+}
+
+.card-date {
+  font-style: italic;
+}
