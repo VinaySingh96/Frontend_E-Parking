@@ -1,5 +1,4 @@
 import React from "react";
-import MapComponent from "./MapComponent";
 import logo from "../../images/parkingLogo.png";
 
 const Footer = () => (

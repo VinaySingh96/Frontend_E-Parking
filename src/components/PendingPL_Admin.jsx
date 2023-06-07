@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TransactionContext } from "../context/TransactionContext";
+import { ParkingProviderContext } from "../context/ParkingProviderContext";
 const { ethereum } = window;
 import { Loader } from '.';
-import Card from "./Card";
+
+
+const url = 'http://localhost:8000/api/ParkingLot/approvePL_admin/';
 
 const PendingPL = ({ pendingPL, setPendingPL }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState();
-  const { currentAccount, connectWallet, handleChange, formData, createEthereumContract } = useContext(TransactionContext);
+  const { currentAccount, connectWallet, handleChange, formData, createEthereumContract } = useContext(ParkingProviderContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,19 +18,21 @@ const PendingPL = ({ pendingPL, setPendingPL }) => {
     return () => clearTimeout(timer);
   }, [msg]);
 
-  const sendTransaction = async (pl) => {
+  const addPLtoBlockchain = async (pl) => {
     setIsLoading(true)
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const transactionHash = await transactionsContract.createParkingLot(pl._id, pl.Name, pl.Fee, pl.TotalSlots, pl.Lattitude, pl.Longitude);
+        const transactionHash = await transactionsContract.createParkingLot(pl.Email,pl.WalletAddress,pl.Name, pl.Fee, pl.TotalSlots, parseInt(pl.Lattitude),parseInt((pl.Lattitude%1)*1e6), parseInt(pl.Longitude),parseInt((pl.Longitude%1)*1e6));
 
         console.log(transactionHash);
         // await transactionHash.wait();
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
         setMsg("Success");
+        console.log(pl._id)
+        approveByAdmin(pl);
 
       } else {
         setMsg("Account is not connected.");
@@ -38,14 +42,35 @@ const PendingPL = ({ pendingPL, setPendingPL }) => {
       console.log(error);
       setMsg("Something went wrong. Please try again!");
       setIsLoading(false);
-      throw new Error("No ethereum object");
     }
   };
+
+  const approveByAdmin=async(pl)=>{
+    try {
+      let newurl=`${url}${pl._id}`;
+      console.log(newurl)
+      const response = await fetch(newurl, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(pl)
+      });
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+      // setErrmsg("Something went wrong. Please try again")
+      setIsLoading(false)
+      return;
+    }
+  }
+
   const handleClick = async (e) => {
     // console.log(e.target)
     console.log(pendingPL.find(ele => ele._id === e.target.id));
     console.log(currentAccount)
-    sendTransaction(pendingPL.find(ele => ele._id === e.target.id));
+    addPLtoBlockchain(pendingPL.find(ele => ele._id === e.target.id));
   }
   return (
     <>

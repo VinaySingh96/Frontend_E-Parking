@@ -1,5 +1,5 @@
 import React,{ useState } from "react";
-import { Navbar, Welcome, Footer, Services, Transactions, PendingPL } from "./components";
+import { Navbar, Welcome, Footer, Services, ParkingLotsProvider, PendingPL } from "./components";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 
@@ -23,7 +23,7 @@ const Index1 = () => {
               <Welcome />
             </div>
             <Services />
-            {!isAdmin ? (<Transactions allPL={allPL} />) : (<PendingPL pendingPL={pendingPL} setPendingPL={setPendingPL} />)}
+            {!isAdmin ? (<ParkingLotsProvider allPL={allPL} />) : (<PendingPL pendingPL={pendingPL} setPendingPL={setPendingPL} />)}
 
             <Footer />
           </div>

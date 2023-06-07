@@ -5,7 +5,7 @@ import "./AllParkingLot.css";
 import Update from "./Update";
 
 
-const Transactions = ({allPL}) => {
+const ParkingLotsProvider = ({allPL}) => {
   const [showUpdate,setShowUpdate]=useState(false);
   const [parkingLot,setParkingLot]=useState(false);
   const [hide,setHide]=useState(false);
@@ -29,4 +29,4 @@ const Transactions = ({allPL}) => {
   );
 };
 
-export default Transactions;
+export default ParkingLotsProvider;

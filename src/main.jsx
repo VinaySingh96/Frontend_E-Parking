@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import { TransactionsProvider } from "./context/TransactionContext";
+import { ParkingLotProvider } from "./context/ParkingProviderContext";
+import { TransactionsUserProvider } from "./context/TransactionContextUser";
 import "./index.css";
 
 ReactDOM.render(
-  <TransactionsProvider>
-    <App />
-  </TransactionsProvider>,
+  <ParkingLotProvider>
+    <TransactionsUserProvider>
+      <App />
+    </TransactionsUserProvider>
+  </ParkingLotProvider>,
   document.getElementById("root"),
 );

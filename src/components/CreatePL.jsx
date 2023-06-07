@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Loader } from ".";
-import { TransactionContext } from "../context/TransactionContext";
 import MapComponent from "./MapComponent";
 
 const url = 'http://localhost:8000/api/ParkingLot/createParkingLot';

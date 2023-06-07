@@ -1,0 +1,40 @@
+.parking-lot {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.parking-lot.animated {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    background-color: #333;
+  }
+  50% {
+    transform: scale(1.05);
+    background-color: #666;
+  }
+  100% {
+    transform: scale(1);
+    background-color: #333;
+  }
+}
+
+button {
+  background-color: #555;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #666;
+}

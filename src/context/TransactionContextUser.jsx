@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-import { contractABI, contractAddress } from "../utils/constants";
+import { contractABI, contractAddress } from "../utils/constantsUser";
 
-export const TransactionContext = React.createContext();
+export const TransactionContextUser = React.createContext();
 
 const { ethereum } = window;
 
@@ -15,8 +15,8 @@ const createEthereumContract = () => {
   return transactionsContract;
 };
 
-export const TransactionsProvider = ({ children }) => {
-  const [formData, setformData] = useState({ parkingLotName: "", walletAddress: "", fee: "", totalSlots: "",lattitude:"",longitude:"" });
+export const TransactionsUserProvider = ({ children }) => {
+  const [formData, setformData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
@@ -75,7 +75,7 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
-        const currentTransactionCount = await transactionsContract.getTotalParkingLots();
+        const currentTransactionCount = await transactionsContract.getTransactionCount();
 
         window.localStorage.setItem("transactionCount", currentTransactionCount);
       }
@@ -101,24 +101,26 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  const sendTransaction = async () => {
+  const sendTransaction = async (pl) => {
+    console.log(pl)
+    pl.WalletAddress="0xA8A83a9F2C85f6D00C905b13B88640F323587a73";
     try {
       if (ethereum) {
-        const { addressTo, amount, keyword, message } = formData;
         const transactionsContract = createEthereumContract();
-        const parsedAmount = ethers.utils.parseEther(amount);
+        const parsedAmount = ethers.utils.parseEther("0.1");
+        console.log(parsedAmount._hex)
 
-        // await ethereum.request({
-        //   method: "eth_sendTransaction",
-        //   params: [{
-        //     from: currentAccount,
-        //     to: addressTo,
-        //     gas: "0x5208",
-        //     value: parsedAmount._hex,
-        //   }],
-        // });
+        await ethereum.request({
+          method: "eth_sendTransaction",
+          params: [{
+            from: currentAccount,
+            to: pl.WalletAddress,
+            gas: "0x5208",
+            value: parsedAmount._hex,
+          }],
+        });
 
-        const transactionHash = await transactionsContract.createParkingLot();
+        const transactionHash = await transactionsContract.addToBlockchain(pl.WalletAddress, parsedAmount, pl.Name);
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
@@ -126,7 +128,7 @@ export const TransactionsProvider = ({ children }) => {
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
 
-        const transactionsCount = await transactionsContract.getTotalParkingLots();
+        const transactionsCount = await transactionsContract.getTransactionCount();
 
         setTransactionCount(transactionsCount.toNumber());
         window.location.reload();
@@ -136,7 +138,7 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
 
-      throw new Error("No ethereum object");
+      // throw new Error("No ethereum object");
     }
   };
 
@@ -146,7 +148,7 @@ export const TransactionsProvider = ({ children }) => {
   }, [transactionCount]);
 
   return (
-    <TransactionContext.Provider
+    <TransactionContextUser.Provider
       value={{
         transactionCount,
         connectWallet,
@@ -156,10 +158,9 @@ export const TransactionsProvider = ({ children }) => {
         sendTransaction,
         handleChange,
         formData,
-        createEthereumContract
       }}
     >
       {children}
-    </TransactionContext.Provider>
+    </TransactionContextUser.Provider>
   );
 };

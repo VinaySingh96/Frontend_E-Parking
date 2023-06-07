@@ -36,8 +36,8 @@ const MapComponent = ({ setMarkerPosition, setShowMap, markerPosition }) => {
         zoom={12}
         onClick={handleMapClick}
       >
-        {markerPosition && <Marker key="marker1"  position={markerPosition} title='Hello World!' />}
-        {markerPosition && <Marker position={{ lat: 34.1233597, lng: 74.84218 }} title='Hello vinay' />}
+        {markerPosition && <Marker key="marker1" position={markerPosition} title='Hello World!' />}
+        
       </GoogleMap>
     </div>
   ) : (
