@@ -5,7 +5,7 @@ import {
 } from "react-social-login-buttons";
 import '../../src/App.css'
 import Loader from "./Loader";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link,useNavigate } from "react-router-dom";
 
 const url = 'http://localhost:8000/api/auth/login';
 const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, setAllPL }) => {
@@ -13,6 +13,7 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
   const [info, setInfo] = useState({ email: '', password: '' });
   const [errmsg, setErrmsg] = useState();
   const [loader, setLoader] = useState(false);
+  const navigateTo=useNavigate();
 
   const handleChange = (e) => {
     // console.log(localStorage.getItem('token'))
@@ -38,7 +39,6 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
         setLoader(false)
         return;
       }
-      localStorage.setItem('token', data.authToken)
       if (data.Admin != undefined) {
         setPendingPL(data.allParkingLots)
         console.log(data);
@@ -46,8 +46,15 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
         setIsAdmin(true);
       }
       else {
-        setAllPL(data.allParkingLots);
+        localStorage.setItem('token', data.authToken)
         console.log(data);
+        if(data.allParkingLots.length===0)
+        {
+          navigateTo('/user');
+          setUser(data.name);
+          return;
+        }
+        setAllPL(data.allParkingLots);
         setUser(data.name);
       }
     } catch (error) {
@@ -62,10 +69,6 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
 
   const onClick = () => {
     setSignIn(false)
-  }
-  // const history = useHistory();
-  const navigateUser =()=>{
-    // history.push('/user');
   }
 
   return (
@@ -118,7 +121,7 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
               {loader ? (<Loader />) : ""}
             </div>
 
-            <div className="socialMediaButtons">
+            {/* <div className="socialMediaButtons">
               <div className="facebookButton">
                 <FacebookLoginButton onClick={() => window.location.href = 'https://www.facebook.com/'} />
               </div>
@@ -126,9 +129,9 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
               <div className="instagramButton">
                 <InstagramLoginButton onClick={() => window.location.href = 'https://www.instagram.com/'} />
               </div>
-            </div>
+            </div> */}
           </form>
-          <div className="flex justify-center items-center mt-8">
+          {/* <div className="flex justify-center items-center mt-8">
           <Link to="/user">
             <a onClick={navigateUser} href="#_" class="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
               <span class="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
@@ -137,7 +140,7 @@ const SignInForm = ({ setSignIn, setLogin, setIsAdmin, setUser, setPendingPL, se
               </span>
             </a>
           </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

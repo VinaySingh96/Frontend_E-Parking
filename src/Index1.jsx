@@ -23,7 +23,7 @@ const Index1 = () => {
               <Welcome />
             </div>
             <Services />
-            {!isAdmin ? (<ParkingLotsProvider allPL={allPL} />) : (<PendingPL pendingPL={pendingPL} setPendingPL={setPendingPL} />)}
+            {!isAdmin ? (<ParkingLotsProvider allPL={allPL} setAllPL={setAllPL} />) : (<PendingPL pendingPL={pendingPL} setPendingPL={setPendingPL} />)}
 
             <Footer />
           </div>

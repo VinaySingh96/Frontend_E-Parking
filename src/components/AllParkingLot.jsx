@@ -61,16 +61,17 @@ export default function Card({ parkingLot, setShowUpdate, setParkingLot, setHide
   }
   return (
     <>
-      <div className="card shadow-lg shadow-cyan-500/50 text-white " >
-        <h1 className="sneaaker-img" style={{ textAlign: 'center', color: 'white', fontSize: '20px', fontWeight: 'bold' }}>{parkingLot.Name}</h1>
+    {/* p-6 border border-gray-200 rounded-lg shadow bg-gray-800 text-white border-gray-700 */}
+      <div className="card p-4 mb-3 border-gray-200 rounded-lg shadow bg-gray-800 text-white border-gray-700 shadow-lg shadow-cyan-500/50 text-white w-[200%]" >
+        <h1 className="sneaaker-img" style={{ textAlign: 'center', color: 'yellow', fontSize: '20px', fontWeight: 'bold' }}>{parkingLot.Name}</h1>
 
-        <div className="flex p-4">
-          <div className="box1" >
+        <div className="flex">
+          <div className="box1 w-[120%]" >
             <span>Fee  </span>
             <span>Total Slots  </span>
             <span> Wallet Address  </span>
           </div>
-          <div className="box2" >
+          <div className="box2  w-[100%]" >
             <span> : {parkingLot.Fee}</span>
             <span> : {parkingLot.TotalSlots}</span>
             <span> : {parkingLot.WalletAddress}</span>

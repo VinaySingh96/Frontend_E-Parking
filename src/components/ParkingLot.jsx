@@ -5,15 +5,47 @@ import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import { shortenAddress } from "../utils/shortenAddress";
 import Loader from "./Loader";
+import Bookings from "./Bookings";
+
+const url = 'http://localhost:8000/api/book/bookSlot';
 
 const ParkingLot = ({ plData }) => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContextUser);
-  // const [isLoading,setIsLoading] =useState(false);
-  const handleClick = () => {
-    sendTransaction(plData);
+  const [loader,setLoader] =useState(false);
+  const [msg,setMsg] =useState(false);
+
+  const handleClick = async() => {
+    setLoader(true)
+    const valid = await sendTransaction(plData);
+    console.log(valid)
+    if(valid){
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            "auth-token": localStorage.getItem('token')
+          },
+          // Adding body or contents to send
+          body: JSON.stringify(plData)
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setMsg("Success")
+        }
+        else {
+          setMsg(`Error :  ${data.Error}`);
+        }
+        console.log(data);
+      } catch(err) {
+        console.log(err)
+        setMsg("Something went wrong. Please try again.")
+      }
+    }
+    setLoader(false)
   }
 
-  return (<div className="flex gap-10">
+  return (<div className="flex gap-10 flex-col">
     {!currentAccount && (
       <div>
         <button
@@ -48,11 +80,11 @@ const ParkingLot = ({ plData }) => {
       </div>
     </div>
     {plData && (
-      <div className="p-6 border border-gray-200 rounded-lg shadow bg-gray-800 text-white border-gray-700" style={{ width: '600px' }}>
-        <a href="#">
+      <div className="p-6 border border-gray-200 rounded-lg shadow bg-gray-800 text-white border-gray-700" style={{ width: '600px',height:'300px' }}>
+        <a >
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-yellow-300">{plData.Name}</h5>
         </a>
-        <div className="flex ">
+        <div className="flex" style={{fontSize:'15px'}}>
           <div >
             <h4>Available Slots : </h4>
             <h4>Wallet Address : &nbsp;</h4>
@@ -73,8 +105,10 @@ const ParkingLot = ({ plData }) => {
             <span class="relative" onClick={handleClick}>Book a slot</span>
           </button>
         </div>
+        {loader && <Loader />}
       </div>)
     }
+    <Bookings />
   </div>
   );
 };
