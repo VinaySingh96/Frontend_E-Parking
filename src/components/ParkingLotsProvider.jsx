@@ -10,7 +10,7 @@ const ParkingLotsProvider = ({allPL,setAllPL}) => {
   const [parkingLot,setParkingLot]=useState(false);
   const [hide,setHide]=useState(false);
 
-  const url_refresh = 'http://theparkingspotserver.onrender.com/api/ParkingLot/fetchAllParkingLots';
+  const url_refresh = 'https://theparkingspotserver.onrender.com/api/ParkingLot/fetchAllParkingLots';
 
   const refreshPL=async ()=>{
     console.log('hi')

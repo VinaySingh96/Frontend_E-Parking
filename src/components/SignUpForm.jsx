@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import Loader from "./Loader";
 
-const url = 'http://theparkingspotserver.onrender.com/api/auth/createUser';
+const url = 'https://theparkingspotserver.onrender.com/api/auth/createUser';
 
 const SignUpForm = ({ setSignIn, setLogin,setUser }) => {
   const [info, setInfo] = useState({

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Loader } from ".";
 import MapComponent from "./MapComponent";
 
-const url = 'http://theparkingspotserver.onrender.com/api/ParkingLot/createParkingLot';
+const url = 'https://theparkingspotserver.onrender.com/api/ParkingLot/createParkingLot';
 const CreatePL = ({ text }) => {
   const [msg, setMsg] = useState();
   const [isLoading, setIsLoading] = useState(false);

@@ -4,8 +4,8 @@ const { ethereum } = window;
 import { Loader } from '.';
 
 
-const url = 'http://theparkingspotserver.onrender.com/api/ParkingLot/approvePL_admin/';
-const url_refresh = 'http://theparkingspotserver.onrender.com/api/ParkingLot/admin_approve';
+const url = 'https://theparkingspotserver.onrender.com/api/ParkingLot/approvePL_admin/';
+const url_refresh = 'https://theparkingspotserver.onrender.com/api/ParkingLot/admin_approve';
 
 const PendingPL = ({ pendingPL, setPendingPL }) => {
   const [isLoading, setIsLoading] = useState(false);

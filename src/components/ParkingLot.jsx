@@ -7,7 +7,7 @@ import { shortenAddress } from "../utils/shortenAddress";
 import Loader from "./Loader";
 import Bookings from "./Bookings";
 
-const url = 'http://theparkingspotserver.onrender.com/api/book/bookSlot';
+const url = 'https://theparkingspotserver.onrender.com/api/book/bookSlot';
 
 const ParkingLot = ({ plData }) => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContextUser);

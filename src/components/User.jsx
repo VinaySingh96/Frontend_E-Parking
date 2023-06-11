@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import MapForUser from './MapForUser'
 import ParkingLot from './ParkingLot'
-const url = 'http://theparkingspotserver.onrender.com/api/ParkingLot/fetchAllParkingLots_admin';
+const url = 'https://theparkingspotserver.onrender.com/api/ParkingLot/fetchAllParkingLots_admin';
 
 const User = () => {
   const [markerPosition, setMarkerPosition] = useState();
