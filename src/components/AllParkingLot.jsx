@@ -5,7 +5,7 @@ import { FiEdit } from 'react-icons/fi'
 import { MdOutlineDeleteOutline } from 'react-icons/md'
 import './AllParkingLot.css';
 
-const url = 'http://localhost:8000/api/ParkingLot/deleteParkingLot';
+const url = 'http://theparkingspotserver.onrender.com/api/ParkingLot/deleteParkingLot';
 
 const DeletePL = ({ setDeleteClick , parkingLot}) => {
   const handleClick = async(e) => {

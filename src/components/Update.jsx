@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { Loader } from ".";
 
-const url = 'http://localhost:8000/api/ParkingLot/updateParkingLot';
+const url = 'http://theparkingspotserver.onrender.com/api/ParkingLot/updateParkingLot';
 
 const Update = ({ setShowUpdate, parkingLot,setHide }) => {
   const [ParkingLot, setParkingLot] = useState(parkingLot);

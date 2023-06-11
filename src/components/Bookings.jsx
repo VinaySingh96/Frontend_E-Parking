@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-const getBookings_url = 'http://localhost:8000/api/book/getBookings';
-const free_url = 'http://localhost:8000/api/book/freeSlot';
+const getBookings_url = 'http://theparkingspotserver.onrender.com/api/book/getBookings';
+const free_url = 'http://theparkingspotserver.onrender.com/api/book/freeSlot';
 
 
 const Bookings = () => {
