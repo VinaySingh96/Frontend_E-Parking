@@ -9,7 +9,7 @@ import Bookings from "./Bookings";
 
 const url = 'https://theparkingspotserver.onrender.com/api/book/bookSlot';
 
-const ParkingLot = ({ plData }) => {
+const ParkingLot = ({ plData ,setPlData}) => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContextUser);
   const [loader,setLoader] =useState(false);
   const [msg,setMsg] =useState(false);
@@ -30,8 +30,18 @@ const ParkingLot = ({ plData }) => {
           body: JSON.stringify(plData)
         });
         const data = await response.json();
-        if (response.ok) {
-          setMsg("Success")
+        if (data.authToken!=undefined) {
+          setMsg("Booked Successfully");
+          let newData=plData;
+          newData.TotalSlots=newData.TotalSlots-1;
+          for(let i=0;i<newData.SlotArray.length;i++){
+            if(newData.SlotArray[i]==1)
+            {
+              newData.SlotArray[i]=0;
+              break;
+            }
+          }
+          setPlData(newData);
         }
         else {
           setMsg(`Error :  ${data.Error}`);
@@ -79,6 +89,7 @@ const ParkingLot = ({ plData }) => {
         </div>
       </div>
     </div>
+    <h2 className="text-red-600">{msg}</h2>
     {plData && (
       <div className="p-6 border border-gray-200 rounded-lg shadow bg-gray-800 text-white border-gray-700" style={{ width: '600px',height:'300px' }}>
         <a >

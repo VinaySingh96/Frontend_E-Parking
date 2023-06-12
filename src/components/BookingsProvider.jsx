@@ -4,7 +4,7 @@ const getBookings_url = 'https://theparkingspotserver.onrender.com/api/book/getB
 const free_url = 'https://theparkingspotserver.onrender.com/api/book/freeSlot';
 
 
-const Bookings = () => {
+const BookingsProvider = () => {
   const [bookings, setBookings] = useState();
   const [errmsg, setErrmsg] = useState();
 
@@ -29,7 +29,7 @@ const Bookings = () => {
       console.log(data);
     } catch (err) {
       console.log(err)
-      setMsg("Something went wrong. Please try again."+err)
+      setMsg("Something went wrong. Please try again.")
     }
   }
   const freeSlot = async ({ slot }) => {
@@ -58,7 +58,7 @@ const Bookings = () => {
       <div className='flex justify-center mt-10 mb-10'>
         <button class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
           <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-          <span class="relative" onClick={getAllBookings}>Bookings</span>
+          <span class="relative" onClick={getAllBookings}>Upcoming Bookings in your parking lot</span>
         </button>
       </div>
       <h2 className="text-red-600">{errmsg}</h2>
@@ -70,15 +70,10 @@ const Bookings = () => {
               <a class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Booking Time : {date}</h5>
                 <hr />
-                <h2 class="font-normal text-gray-700 dark:text-gray-400">Your Verification Token : {slot.authToken}</h2>
+                <h2 class="font-normal text-gray-700 dark:text-gray-400">Verification Token : {slot.authToken}</h2>
                 <hr />
-                <h2 class="font-normal text-gray-700 dark:text-gray-400">Your Slot No. : {slot.slotNo}</h2>
-                <div className='flex justify-center mt-10 mb-10'>
-                  <button class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 relative hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
-                    <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                    <span class="relative" onClick={() => freeSlot({ slot })}>Free This Slot</span>
-                  </button>
-                </div>
+                <h2 class="font-normal text-gray-700 dark:text-gray-400">Slot No. : {slot.slotNo}</h2>
+                
               </a>
             </div>
 
@@ -89,4 +84,4 @@ const Bookings = () => {
   )
 }
 
-export default Bookings
+export default BookingsProvider

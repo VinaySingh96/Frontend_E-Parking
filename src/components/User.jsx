@@ -48,7 +48,7 @@ const User = () => {
         <span class="relative">Find parking lot</span>
       </button>
       </div>
-      <ParkingLot plData={plData} />
+      <ParkingLot plData={plData} setPlData={setPlData}/>
     </div>
 
   )

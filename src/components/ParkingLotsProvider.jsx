@@ -1,18 +1,20 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 
 import AllParkingLot from "./AllParkingLot";
 import "./AllParkingLot.css";
 import Update from "./Update";
+import BookingsProvider from "./BookingsProvider";
 
 
-const ParkingLotsProvider = ({allPL,setAllPL}) => {
-  const [showUpdate,setShowUpdate]=useState(false);
-  const [parkingLot,setParkingLot]=useState(false);
-  const [hide,setHide]=useState(false);
+const ParkingLotsProvider = ({ allPL, setAllPL }) => {
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [parkingLot, setParkingLot] = useState(false);
+  const [hide, setHide] = useState(false);
+  const [errmsg, setErrmsg] = useState();
 
   const url_refresh = 'https://theparkingspotserver.onrender.com/api/ParkingLot/fetchAllParkingLots';
 
-  const refreshPL=async ()=>{
+  const refreshPL = async () => {
     console.log('hi')
     console.log(localStorage.getItem('token'))
     try {
@@ -25,10 +27,16 @@ const ParkingLotsProvider = ({allPL,setAllPL}) => {
       });
       const data = await response.json();
       console.log(data)
+      if(data.length==0){
+        setErrmsg("No Parking lot.")
+      }
+      else{
+        setErrmsg("");
+      }
       setAllPL(data)
     } catch (error) {
       console.log(error);
-      // setErrmsg("Something went wrong. Please try again")
+      setErrmsg("Something went wrong. Please try again reason : "+error)
       // setIsLoading(false)
       return;
     }
@@ -38,7 +46,7 @@ const ParkingLotsProvider = ({allPL,setAllPL}) => {
     <div className="flex w-full justify-center items-center 2xl:px-20 ">
       <div className="flex flex-col md:p-12 py-12 px-4 justify-center items-center">
 
-      <div className="flex gap-10">
+        <div className="flex gap-10">
           <h1 className="text-3xl sm:text-4xl text-white text-gradient py-1">
             My Parking Lots </h1>
           <button onClick={refreshPL} class="relative inline-flex items-center justify-start inline-block px-5 py-3 overflow-hidden font-bold rounded-full group">
@@ -50,14 +58,18 @@ const ParkingLotsProvider = ({allPL,setAllPL}) => {
           </button>
 
         </div>
-        {showUpdate && <Update setShowUpdate={setShowUpdate} setHide={setHide} parkingLot={parkingLot}/>}
-        <div className="flex flex-wrap justify-center items-center mt-10 w-[80%]" style={hide?{filter:'blur(4px)',pointerEvents:'none',userSelect:'none'}:{}}>
+        <h2 className="text-red-600">{errmsg}</h2>
+        {showUpdate && <Update setShowUpdate={setShowUpdate} setHide={setHide} parkingLot={parkingLot} />}
+        <div className="flex flex-wrap justify-center items-center mt-10 w-[80%]" style={hide ? { filter: 'blur(4px)', pointerEvents: 'none', userSelect: 'none' } : {}}>
           {allPL.map((item) => {
-            return(
-            <AllParkingLot key={item._id} parkingLot={item} setShowUpdate={setShowUpdate} setParkingLot={setParkingLot} setHide={setHide} />
-          )}
+            return (
+              <AllParkingLot key={item._id} parkingLot={item} setShowUpdate={setShowUpdate} setParkingLot={setParkingLot} setHide={setHide} />
+            )
+          }
           )}
         </div>
+        <BookingsProvider />
+        
       </div>
     </div>
   );
